@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resolve · AI Support Agent</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/styles.css?v=1.0.1">
+  <script src="/static/app.js?v=1.0.1" defer></script>
+</head>
+<body>
+  <a class="skip" href="#workspace">Skip to workspace</a>
+  <aside class="rail" aria-label="Main navigation">
+    <a class="brand" href="/" aria-label="Resolve home"><span class="brand-mark">✳</span><strong>resolve<span>.</span></strong></a>
+    <div class="workspace-label">WORKSPACE</div>
+    <nav>
+      <button class="nav-item active" data-view="inbox"><span aria-hidden="true">▣</span> Inbox <span class="nav-count" id="open-count">4</span></button>
+      <button class="nav-item" data-view="knowledge"><span aria-hidden="true">▤</span> Knowledge</button>
+      <button class="nav-item" data-view="quality"><span aria-hidden="true">◎</span> Quality lab</button>
+    </nav>
+    <div class="rail-bottom"><div class="agent-orb">✳</div><strong>One agent. Clear evidence.</strong><p>Every resolution stays in your hands.</p><span class="local-pill"><i></i> LOCAL WORKSPACE</span><a href="/docs" target="_blank" rel="noopener">API documentation ↗</a></div>
+  </aside>
+  <main id="workspace">
+    <header class="topbar"><div><span class="breadcrumb">WORKSPACE /</span> <span id="page-label">Support inbox</span></div><div class="topbar-right"><span class="connection" id="connection">Connecting…</span><span class="avatar">YOU</span></div></header>
+    <div id="notice" role="status" aria-live="polite" hidden></div>
+    <section id="view-inbox" class="view">
+      <div class="page-heading"><div><div class="eyebrow">AI SUPPORT RESOLUTION AGENT</div><h1>A thoughtful reply.<br><span>A traceable decision.</span></h1><p>Give every support conversation the right next step.</p></div><button class="button primary" id="new-ticket">＋ New ticket</button></div>
+      <div class="workspace-grid">
+        <section class="ticket-panel" aria-label="Support tickets"><div class="panel-heading"><h2>Conversations</h2><span class="muted" id="ticket-count"></span></div><label class="search-box"><span aria-hidden="true">⌕</span><input id="ticket-search" placeholder="Find a conversation" aria-label="Find a conversation"></label><div id="tickets" class="ticket-list"></div><div class="panel-note">Synthetic customers · Real agent workflow</div></section>
+        <section class="conversation-panel" aria-label="Selected conversation"><div id="conversation"></div></section>
+        <aside class="evidence-panel" aria-label="Evidence and execution"><div id="evidence"></div></aside>
+      </div>
+      <footer>Built for considered decisions. Approval saves locally; it does not send a customer message.</footer>
+    </section>
+    <section id="view-knowledge" class="view" hidden>
+      <div class="page-heading"><div><div class="eyebrow">THE SOURCE OF YOUR ANSWERS</div><h1>Knowledge, connected.</h1><p>Turn product policies into passages your agent can find and cite.</p></div><div class="button-group"><button class="button" id="index-documents">Index knowledge</button><button class="button primary" id="add-document">＋ Add document</button></div></div>
+      <div class="flow-strip"><span>01 <b>Documents</b></span><span>→</span><span>02 <b>Overlapping chunks</b></span><span>→</span><span>03 <b>Embeddings</b></span><span>→</span><span>04 <b>Hybrid retrieval</b></span><span>→</span><span>05 <b>Cited draft</b></span></div>
+      <p class="muted small">Indexing sends document text to OpenAI for embeddings. New agent runs index any documents that are still pending.</p>
+      <div id="documents" class="document-grid"></div>
+    </section>
+    <section id="view-quality" class="view" hidden>
+      <div class="page-heading"><div><div class="eyebrow">MAKE RELIABILITY VISIBLE</div><h1>Inspect. Compare. Improve.</h1><p>Explore what the agent retrieves and review measured evaluation results.</p></div></div>
+      <div class="quality-layout"><section class="card"><div class="panel-heading"><h2>Retrieval playground</h2><span class="badge violet">RAG</span></div><p>Try a support question and inspect the passages returned by each retrieval method.</p><form id="search-form"><label>Question<input name="query" required minlength="3" maxlength="1500" placeholder="How long does an export link last?"></label><label>Retrieval method<select name="mode"><option value="hybrid">Hybrid · semantic + keyword</option><option value="semantic">Semantic · meaning similarity</option><option value="keyword">Keyword · exact term matching</option></select></label><button class="button primary" type="submit">Find supporting passages ↗</button></form><div id="search-results"></div><p class="muted small">Ranks and similarity scores help choose passages. They do not establish whether an answer is correct.</p></section><section class="card" id="evaluation-summary"></section></div>
+    </section>
+  </main>
+  <dialog id="ticket-dialog"><form id="ticket-form"><div class="dialog-heading"><h2>New conversation</h2><button class="icon-button" type="button" data-close="ticket-dialog" aria-label="Close new ticket">×</button></div><p class="muted">Use a fictional support request to explore the agent.</p><label>Customer<select name="customer_id" id="customer-select"></select></label><label>Subject<input name="subject" required minlength="4" maxlength="160" placeholder="What does the customer need?"></label><label>Message<textarea name="body" required minlength="10" maxlength="6000" rows="6" placeholder="Include enough context for a useful response."></textarea></label><button class="button primary" type="submit">Create ticket</button></form></dialog>
+  <dialog id="document-dialog"><div class="dialog-heading"><h2>Add to your knowledge base</h2><button class="icon-button" type="button" data-close="document-dialog" aria-label="Close document form">×</button></div><form id="document-form"><label>Document title<input name="title" required minlength="3" maxlength="120" placeholder="Product policy or troubleshooting guide"></label><label>Content<textarea name="text" required minlength="30" maxlength="30000" rows="8" placeholder="Paste the source material the agent should use."></textarea></label><button class="button primary" type="submit">Save document</button></form><div class="upload-divider">or import a UTF-8 file</div><label class="upload-label">Markdown or plain text · up to 120 KB<input id="document-file" type="file" accept=".md,.txt"></label><p class="muted small">Saved locally. Embedding requests happen when you index knowledge or run the agent.</p></dialog>
+  <dialog id="source-dialog"><div class="dialog-heading"><h2 id="source-title">Source passage</h2><button class="icon-button" type="button" data-close="source-dialog" aria-label="Close source passage">×</button></div><div id="source-content" class="source-content"></div></dialog>
+</body>
+</html>

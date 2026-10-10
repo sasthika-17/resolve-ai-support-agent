@@ -1,0 +1,4 @@
+{"name":"documented_export","ticket_id":"ticket_export","expected_disposition":"resolved","required_source_title":"Workspace exports","required_tools":["customer_lookup","search"]}
+{"name":"duplicate_charge_escalation","ticket_id":"ticket_refund","expected_disposition":"escalated","required_source_title":"Duplicate charges and refund review","required_tools":["customer_lookup","search"]}
+{"name":"saml_guidance","ticket_id":"ticket_sso","expected_disposition":"resolved","required_source_title":"Troubleshooting SAML sign-in","required_tools":["customer_lookup","search"]}
+{"name":"unsupported_compliance_escalation","ticket_id":"ticket_unknown","expected_disposition":"escalated","required_source_title":"Account deletion and data privacy","required_tools":["customer_lookup","search"]}

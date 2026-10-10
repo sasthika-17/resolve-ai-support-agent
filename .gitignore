@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+.venv/
+.runtime/
+.runtime-*/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+evals/results/
+*.log
